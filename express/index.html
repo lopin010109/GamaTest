@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JavaScript Test</title>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+    </style>    
+</head>
+
+<body>
+    <h1>JavaScript Test</h1>
+    
+    <h3>新增</h3>
+    <form action="/car/insert" method="POST">
+    廠牌：<br><input name="brand" type="text" value=""><br>
+    車號：<br><input name="number" type="text" value=""><br>
+    車種：<br><input name="type" type="text" value=""><br>
+    售出日期：<br><input name="date" type="text" value=""><br>
+    姓名：<br><input name="name" type="text" value=""><br>
+    電話：<br><input name="phone" type="text" value=""><br>
+    <input type="submit" value="新增"></input>
+    </form>
+
+    <h3>刪除</h3>
+    <p>請輸入車號</p>
+    <form action="/car/del" method="POST">
+    <input name="number" type="text" value=""></input><br> 
+    <input type="submit" value="刪除"></input>
+    </form>
+    
+
+    <h3>修改</h3>
+    <form action="/car/update" method="POST">
+    <p>輸入車號</p>
+    <input name="number" type="text" value=""></input>
+    <p>輸入新資料</p>
+    <div id="category-item">
+            <select name="updateItem">
+                <option value="brand">廠牌</option>
+                <option value="number">車號</option>
+                <option value="type">車種</option>
+                <option value="date">售出日期</option>
+                <option value="name">姓名</option>
+                <option value="phone">電話</option>
+            </select>
+    </div>
+    <input name="newData" type="text" value=""><br>
+    <input type="submit" value="修改"></input>
+    </form>
+    
+    <h3>查詢</h3>
+    <form action="/car/getall" method="GET">
+    <input id="searchAllBtn" type="submit" value="查詢全部" ></input>
+    </form>
+    
+    <form action="/car/getselect" method="POST">
+    <p>請輸入車號</p>
+    <input type="text" name="number" value=""><br>
+    <input type="submit" value="查詢單筆"></input>
+    </form>
+
+    
+
+</body>
+</html>
+
