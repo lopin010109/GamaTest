@@ -40,7 +40,7 @@
     <p>輸入車號</p>
     <input name="number" type="text" value=""></input>
     <p>輸入新資料</p>
-    <div id="category-item">
+    <div>
             <select name="updateItem">
                 <option value="brand">廠牌</option>
                 <option value="number">車號</option>
@@ -56,16 +56,15 @@
     
     <h3>查詢</h3>
     <form action="/car/getall" method="GET">
-    <input id="searchAllBtn" type="submit" value="查詢全部" ></input>
+    <input type="submit" value="查詢全部" ></input>
     </form>
     
     <form action="/car/getselect" method="POST">
     <p>請輸入車號</p>
-    <input type="text" name="number" value=""><br>
+    <input name="number" type="text" value=""><br>
     <input type="submit" value="查詢單筆"></input>
     </form>
 
-    
 
 </body>
 </html>

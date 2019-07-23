@@ -4,109 +4,183 @@ const mysql = require('mysql');
 const pool = mysql.createPool({
     connectionLimit: 5,
 
-    host: "127.0.0.1",
+    host: "192.168.122.174",
     user: "root",
-    password: "root1234",
-    database: "GamaDBTest"
+    password: "gama.net",
+    database: "JoshhsiehTest"
 });
+
+// Promise & async/await
 
 function query(sql) {
     return new Promise(function(resolve, reject) {
         pool.query(sql, function(err, results, fields) {
             if(err) {
+                console.log(err);
                 reject(err);
                 return;
             };
+            //let string = JSON.stringify(results); 
+            console.log(results);
             resolve(results);
         });
     });
-}; 
+};
+
 
 module.exports = {
-    query
- };
+    query 
+};
 
-// function getAll(req) {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// function query(req) {
 //     return new Promise(function(resolve, reject) {
-//         pool.query('select * from Car', function(err, results, fields) {
+//         pool.query(sql, function(err, results, fields) {
 //             if(err) {
-//                 console.error(err);
-//                 reject(err);
+//                 console.log(err);
+//                 results.status = "查詢失敗！伺服器錯誤，請稍後再試！";
+//                 reject(results);
 //                 return;
 //             };
-//             let string = JSON.stringify(results);
-//             console.log(string);
-//             resolve(string);
+//             // 查詢是否有無車號
+//             if(results.length >= 1) {
+//                 pool.query(`select id, Brand, Number, Type, Date, Name, Phone from Car where Number = "${req}";`, function(err, results, fields) {
+//                     if(err) {
+//                         console.log(err);
+//                         results.status = "查詢失敗！伺服器錯誤，請稍後再試！";
+//                         reject(results);
+//                         return;
+//                     };
+//                     let string = JSON.stringify(results);
+//                     console.log(string);
+//                     resolve(string);
+//                 });  
+//             } else {
+//                 results.status = `查詢失敗！查無此車號 "${req}"！`;
+//                 reject(results);
+//             }
 //         });
-//     });
-// };
-
-// function getSelect(req) {
-//     return new Promise(function(resolve, reject) {
-//         pool.query(`select id, Brand, Number, Type, Date, Name, Phone from Car where Number = ${req};`, function(err, results, fields) {
-//             if(err) {
-//                 console.error(err);
-//                 reject(err);
-//                 return;
-//             };
-//             let string = JSON.stringify(results);
-//             console.log(string);
-//             resolve(string);
-//         });  
 //     });  
 // };
 
-// function insert(req) {
+// function insert(sql) {
 //     return new Promise(function(resolve, reject) {
-//         pool.query(`insert into Car (Brand, Number, Type, Date, Name, Phone) values ("${req.brand}", ${req.number}, "${req.type}", ${req.date}, "${req.name}", ${req.phone});`, function(err, results, fields) {
+//         // 尋找是否有重複車號
+//         pool.query(`select Number from Car where Number = "${req.number}"`, function(err, results, fields) {
 //             if(err) {
-//                 console.error(err);
-//                 reject(err);
+//                 console.log(err);
+//                 results.status = "新增失敗！伺服器錯誤，請稍後再試！";
+//                 reject(results);
 //                 return;
 //             };
-//             let string = JSON.stringify(results);
-//             console.log(string);
-//             resolve(string);
+//             // 判定是否有重複車號
+//             if(results.length >= 1) {
+//                 results.status = `新增失敗！已有重複車號 "${req.number}"！`;
+//                 reject(results);
+//             } else {
+//                 // 新增資料
+//                 pool.query(`insert into Car (Brand, Number, Type, Date, Name, Phone) values 
+//                 ("${req.brand}", "${req.number}", "${req.type}", ${req.date}, "${req.name}", "${req.phone}");`, 
+//                 function(err, results, fields) {
+//                     if(err) {
+//                         console.log(err);
+//                         results.status = "新增失敗！伺服器錯誤，請稍後再試！";
+//                         reject(results);
+//                         return;
+//                     };
+//                     let string = JSON.stringify(results);
+//                     console.log(string);
+//                     resolve(string);
+//                 });
+//             }
 //         });
 //     });
 // };
 
 // function del(req) {
 //     return new Promise(function(resolve, reject) {
-//         pool.query(`delete from Car where Number = ${req}`, function(err, results, fields) {
+//         pool.query(`select Number from Car where Number = "${req}"`, function(err, results, fields) {
 //             if(err) {
-//                 console.error(err);
-//                 reject(err);
+//                 console.log(err);
+//                 results.status = "刪除失敗！伺服器錯誤，請稍後再試！";
+//                 reject(results);
 //                 return;
 //             };
-//             let string = JSON.stringify(results);
-//             console.log(string);
-//             resolve(string);
-//         });
+//             // 驗證是否有車牌號碼
+//             if (results.length >= 1) {
+//                 pool.query(`delete from Car where Number = "${req}"`, function(err, results, fields) {
+//                     if(err) {
+//                         console.log(err);
+//                         results.status = "刪除失敗！伺服器錯誤，請稍後再試！";
+//                         reject(results);
+//                         return;
+//                     };
+//                     let string = JSON.stringify(results);
+//                     console.log(string);
+//                     resolve(string);
+//                 });
+//             } else {
+//                 results.status = `刪除失敗！查無此車號 "${req}"！`;
+//                 reject(results);
+//             }
+//         });  
 //     });
 // };
 
 // function update(req) {
 //     return new Promise(function(resolve, reject) {
-//         pool.query(`update Car set ${req.updateItem} = "${req.newData}" where Number = ${req.number}`, function(err, results, fields){
+//         pool.query(`select Number from Car where Number = "${req.number}"`, function(err, results, fields) {
 //             if(err) {
-//                 console.error(err);
-//                 reject(err);
+//                 console.log(err);
+//                 results.status = "修改失敗！伺服器錯誤，請稍後再試！";
+//                 reject(results);
 //                 return;
 //             };
-//             let string = JSON.stringify(results);
-//             console.log(string);
-//             resolve(string);
-//         }); 
+//             // 驗證是否有車牌號碼
+//             if(results.length >=1 ) {
+//                 pool.query(`update Car set ${req.updateItem} = "${req.newData}" where Number = "${req.number}"`, function(err, results, fields){
+//                     if(err) {
+//                         console.log(err);
+//                         results.status = "修改失敗！伺服器錯誤，請稍後再試！";
+//                         reject(results);
+//                         return;
+//                     };
+//                     let string = JSON.stringify(results);
+//                     console.log(string);
+//                     resolve(string);
+//                 }); 
+//             } else {
+//                 results.status = `修改失敗！查無此車號 "${req.number}"！`;
+//                 reject(results);
+//             }
+//         });
 //     });
 // };
 
 
-
-
-
 // 使用 pool.query
-// callback
+
+//callback
 // function getAll(req, callbcak) {
 //     pool.query('select * from Car', function(err, results, fields) {
 //         if(err){
@@ -170,11 +244,7 @@ module.exports = {
 //         console.log(string);
 //         callbcak(string);
 //     }); 
-    
 // };
-
-
-
 
 
 

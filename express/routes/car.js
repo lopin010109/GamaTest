@@ -1,32 +1,34 @@
-let express = require('express');
-let router = express.Router();
+const express = require('express');
+const router = express.Router();
 const {getAll, getSelect, insert, del, update} = require('../fp');
 
 
-// async/await
-// getall
+//async/await
+//getall
 router.get('/getall', async function(req, res) {
+    console.log('getAll');
     const data = await getAll(req);
     res.send(data);
+    
 });
 
-// getselect 
+//getselect 
 router.post('/getselect', async function(req, res) {
-    console.log(`單筆查詢輸入資料： ${req.body.number}`);
+    console.log('getSelect');
     const data = await getSelect(req.body.number);
-    res.send(data)
+    res.send(data);
 });
 
 // insert 
 router.post('/insert', async function(req, res) {
     console.log('insert');
     const data = await insert(req.body);
-    res.send(data);
+    res.send(data);     
 });
 
 // delete 
-router.post('/del', async function(req, res) {
-    console.log(`刪除單筆資料：${req.body.number}`);
+router.post('/del', async function(req, res) { 
+    console.log('del')
     const data = await del(req.body.number);
     res.send(data);
 });
@@ -34,9 +36,10 @@ router.post('/del', async function(req, res) {
 // update 
 router.post('/update', async function(req, res) {
     console.log(`修改 ${req.body.number} 的 ${req.body.updateItem} 資料：為 ${req.body.newData}`);
-    const data = await update(req.body)
+    const data = await update(req.body);       
     res.send(data);
 });
+
 
 module.exports = router;
 

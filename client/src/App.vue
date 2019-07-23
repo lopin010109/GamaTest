@@ -1,14 +1,13 @@
-<template>
-  <div id="app">
-    <h1>Vue Test</h1>
-    <router-view/>
-  </div>
+<template lang="pug">
+  div(id="app")
+    h1 Vue Test
+    router-view
 </template>
 
 <script>
 export default {
-  name: 'App'
-}
+  name: 'App',
+};
 </script>
 
 <style>

@@ -1,7 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '@/components/Home'
+// 我設定的首頁
+import Home from '@/pages/Home'
 
+// 使用路由
 Vue.use(Router)
 
 export default new Router({
@@ -14,6 +16,5 @@ export default new Router({
     {
       path: '/*' , redirect: '/home'
     }
-
   ]
 })

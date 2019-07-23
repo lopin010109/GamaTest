@@ -29,13 +29,7 @@ app.get('/', function(req, res) {
 });
 
 
-/* ---------------  Car router  ----------------- */
-
+// 引入 car.js
 let car = require('./routes/car');
-
 app.use('/car', car);
-
-
-
-
 
