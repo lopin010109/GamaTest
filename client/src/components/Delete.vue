@@ -1,21 +1,15 @@
 <template lang="pug">
 div
-  h4 查詢資料
+  h4 刪除資料
   el-form(:model="ruleForm" :rules="rules" ref="ruleForm")
     el-form-item(prop="inputNumber")
-      el-input(v-model="ruleForm.inputNumber" placeholder="請輸入車號" clearable)
+      el-input(v-model="ruleForm.inputNumber" placeholder="請輸入車號" style="" clearable)
     el-form-item
-      el-button(@click="btnGetSelect" type="primary") 確認查詢
+      el-button(@click="btnDelete" type="primary") 確認刪除
       el-button(@click="resetForm('ruleForm')") 重置
-  h4 全部查詢
-  el-form
-    el-form-item
-      el-button(@click="btnGetall" type="primary") 確認查詢
-  ShowItem(:list="list")
 </template>
 
 <script>
-import ShowItem from "../components/ShowItem.vue";
 import { mapGetters, mapActions } from "vuex";
 
 export default {
@@ -30,7 +24,6 @@ export default {
       }
     };
     return {
-      a: 1,
       ruleForm: {
         inputNumber: ""
       },
@@ -43,29 +36,17 @@ export default {
       }
     };
   },
-  components: {
-    ShowItem
-  },
   computed: mapGetters({
-    list: "getData",
+    list: "getData"
   }),
   methods: {
-    // ...mapActions('ui/car/car', ['fetchGetAll']),
-    // btnGetall() {
-    //   this.fetchGetAll();
-    // },
-    // resetForm() {
-    //   this.ruleForm.inputNumber = null;
-    // },
-    // 省略 ...mapActions 引入 可以直接寫下列
-    btnGetall() {
-      console.log("vuex 生命週期 - dispatch 發請求");
-      this.$store.dispatch("actionGetAll");
+    btnDelete() {
+      this.$store.dispatch("actionDelete", this.ruleForm.inputNumber);
     },
-    btnGetSelect() {
-      this.$store.dispatch("actionGetSelect", this.ruleForm.inputNumber);
-    }, 
-  },
+    resetForm(formName) {
+      this.$refs[formName].resetFields();
+    }
+  }
 };
 </script>
 
@@ -74,4 +55,3 @@ export default {
   width: 180px;
 }
 </style>
-

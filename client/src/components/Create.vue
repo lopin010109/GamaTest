@@ -16,12 +16,10 @@ div
         el-input(v-model="ruleForm.inputPhone" placeholder="請輸入電話" style="" clearable)
       el-form-item
         el-button(@click="btnCreate") 確認新增
-        el-button(@click="resetForm('ruleForm')") 重置 
-  ShowItem(:list="list")
+        el-button(@click="resetForm('ruleForm')") 重置
 </template>
 
 <script>
-import ShowItem from "../components/ShowItem.vue";
 import { mapGetters, mapActions } from "vuex";
 
 export default {
@@ -66,12 +64,12 @@ export default {
     };
     return {
       ruleForm: {
-        inputBrand: "",
-        inputNumber: "",
-        inputType: "",
-        inputDate: "",
-        inputName: "",
-        inputPhone: ""
+        inputBrand: '',
+        inputNumber: '',
+        inputType: '',
+        inputDate: '',
+        inputName: '',
+        inputPhone: '',
       },
       rules: {
         inputBrand: [
@@ -105,9 +103,6 @@ export default {
       }
     };
   },
-  components: {
-    ShowItem
-  },
   computed: mapGetters({
     list: "getData"
   }),
@@ -119,13 +114,21 @@ export default {
         Type: this.ruleForm.inputType,
         Date: this.ruleForm.inputDate,
         Name: this.ruleForm.inputName,
-        Phone: this.ruleForm.inputPhone
+        Phone: this.ruleForm.inputPhone,
       });
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
     }
-  }
+  },
+  mounted() {
+    this.ruleForm.inputBrand = this.listData[0].getRowBrand;
+    this.ruleForm.inputNumber = this.listData[0].getRowNumber;
+    this.ruleForm.inputType = this.listData[0].getRowType;
+    this.ruleForm.inputDate = this.listData[0].getRowDate;
+    this.ruleForm.inputName = this.listData[0].getRowName;
+    this.ruleForm.inputPhone = this.listData[0].getRowPhone;
+  },
 };
 </script>
 

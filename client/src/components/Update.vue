@@ -14,16 +14,17 @@ div
     el-form-item(prop="inputData")
       el-input(v-model="ruleForm.inputData" placeholder="請輸入新資料" clearable)
     el-form-item
-      el-button(@click="btnUpdate" type="primary") 修改
-      el-button(@click="resetForm()") 重置
-  ShowItem(:list="list")
+      el-button(@click="btnUpdate('ruleForm')" type="primary") 修改
+      el-button(@click="resetForm('ruleForm')") 重置
 </template>
 
 <script>
-import ShowItem from "../components/ShowItem.vue";
 import { mapGetters, mapActions } from "vuex";
 
 export default {
+  props: {
+    listData: Array,
+  },
   data() {
     // 車號檢查
     let patternNumber = new RegExp("[A-Z]{3}[0-9]{4}");
@@ -36,8 +37,8 @@ export default {
     };
     return {
       ruleForm: {
-        inputNumber: "",
-        inputData: ""
+        inputNumber: '',
+        inputData: '',
       },
       rules: {
         inputNumber: [
@@ -48,56 +49,53 @@ export default {
         inputData: [
           { required: true, message: "請輸入新資料", trigger: "blur" },
           { max: 10, message: "需在10字以內", trigger: "blur" }
-        ]
-      },
-      options: [
-        {
-          value: "brand",
-          label: "廠牌"
-        },
-        {
-          value: "number",
-          label: "車號"
-        },
-        {
-          value: "type",
-          label: "車種"
-        },
-        {
-          value: "date",
-          label: "日期"
-        },
-        {
-          value: "name",
-          label: "姓名"
-        },
-        {
-          value: "phone",
-          label: "電話"
-        }
-      ],
+        ]},
+      options: [{
+        value: "brand",
+        label: "廠牌"
+      },{
+        value: "number",
+        label: "車號"
+      },{
+        value: "type",
+        label: "車種"
+      },{
+        value: "date",
+        label: "日期"
+      },{
+        value: "name",
+        label: "姓名"
+      },{
+        value: "phone",
+        label: "電話"
+      }],
       value: "type"
     };
-  },
-  components: {
-    ShowItem
   },
   computed: mapGetters({
     list: "getData"
   }),
   methods: {
-    btnUpdate() {
-      this.$store.dispatch("actionUpdate", {
-        Number: this.ruleForm.inputNumber,
-        Value: this.value,
-        NewData: this.ruleForm.inputData
+    btnUpdate(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          alert('submit!');
+          this.$store.dispatch("actionUpdate", {
+            Number: this.ruleForm.inputNumber,
+            Value: this.value,
+            NewData: this.ruleForm.inputData
+          });
+        } else {
+          alert('error submit!!');
+          console.log('error submit!!');
+          return false;
+        }
       });
     },
-    resetForm() {
-      this.ruleForm.inputNumber = null;
-      this.ruleForm.inputData = null;
-    }
-  }
+    resetForm(formName) {
+      this.$refs[formName].resetFields();
+    },
+  },
 };
 </script>
 

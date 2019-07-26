@@ -1,38 +1,17 @@
 <template lang="pug">
 div 
-  el-tabs(v-model="activeName" @tab-click="handleClick")
-    el-tab-pane(label="查詢車輛" name="first") 查詢車輛
-      Select
-    el-tab-pane(label="新增車輛" name="second") 新增車輛
-      Create
-    el-tab-pane(label="修改車輛" name="third") 修改內容
-      Update
-    el-tab-pane(label="刪除車輛" name="fourth") 刪除車輛
-      Delete
+  h2 Home Pages
+  router-link(to='/showItem')
+  router-link.routerStyle.el-button(to='/create') Create
+  router-view
 </template>
 
 <script>
-import Select from "../pages/Select.vue";
-import Create from "../pages/Create.vue";
-import Update from "../pages/Update.vue";
-import Delete from "../pages/Delete.vue";
+import ShowItem from './ShowItem';
 
 export default {
-  data() {
-    return {
-      activeName: "first"
-    };
-  },
   components: {
-    Select,
-    Create,
-    Update,
-    Delete
+    ShowItem,
   },
-  methods: {
-    handleClick(tab, event) {
-      console.log(tab, event);
-    }
-  }
 };
 </script>
